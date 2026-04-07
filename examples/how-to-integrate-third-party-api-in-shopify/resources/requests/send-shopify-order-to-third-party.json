@@ -1,0 +1,53 @@
+{
+  "id": "send-shopify-order-to-third-party",
+  "name": "Send Shopify Order To Third Party",
+  "type": "http",
+  "method": "POST",
+  "address": "https://api.example.com/orders",
+  "parameters": [
+    {
+      "type": "header",
+      "name": "Accept",
+      "value": "application/json"
+    },
+    {
+      "type": "header",
+      "name": "Content-Type",
+      "value": "application/json"
+    },
+    {
+      "type": "header",
+      "name": "Authorization",
+      "value": "Bearer replace-with-real-third-party-api-token",
+      "sensitive": true
+    },
+    {
+      "type": "header",
+      "name": "X-Shopify-Order-Id",
+      "value": "{id}"
+    },
+    {
+      "type": "header",
+      "name": "X-Shopify-Order-Name",
+      "value": "{name}"
+    },
+    {
+      "type": "query",
+      "name": "shopify_order_id",
+      "value": "{id}"
+    },
+    {
+      "type": "query",
+      "name": "shopify_order_number",
+      "value": "{order_number}"
+    }
+  ],
+  "triggers": [
+    {
+      "type": "webhook",
+      "webhook": {
+        "event": "ORDERS_CREATE"
+      }
+    }
+  ]
+}

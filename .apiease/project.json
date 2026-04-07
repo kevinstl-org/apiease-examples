@@ -1,5 +1,5 @@
 {
-  "cliVersion": "0.1.1",
+  "cliVersion": "0.1.5",
   "template": {
     "displayTemplateSource": "https://github.com/kevinstl-org/apiease-template",
     "manifest": {
@@ -14,7 +14,7 @@
       "docs/examples/resources/requests/example-system-request.json": "65a9323df2050381287c035ea216eee9073d2c26d46e6897ee93d73418d2c958",
       "docs/examples/resources/variables/example-variable.json": "25399bccb101f9b10b81c6ffcff3009c8b63a194571d9e4de659b3feebdd8316",
       "docs/examples/resources/widgets/example-widget.json": "f8fc80a494b9b2e1aceb6944e92f619f92e21e02bafa546352333119de641069",
-      "docs/knowledgebase/apiEaseDocsConsolidated.md": "5d011bd9017f013c72657dd8a0dcb4ae7fa7719a7e2e775dc423a3a8c78ffbc3",
+      "docs/knowledgebase/apiEaseDocsConsolidated.md": "af39d6090998fa1e610f32bbcfd1eabfabd8b2d806ea865607f7fb3a4344b237",
       "docs/shared-ongoing-ai-guidance.md": "988feda5c856fc56aaf1ef5c69d88ea008af9980b118c226eb25c6b37c8c94eb",
       "package.json": "236d3d268deb6d24fc88da5c9aa5b4c14f87e1fe723e253ed9365e53416a6efc",
       "resources/functions/.gitkeep": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
@@ -31,7 +31,7 @@
     "sourceType": "publicRepository",
     "version": {
       "type": "gitCommit",
-      "value": "2883531eb5e108e36521f9e75ddc24606bc19c77"
+      "value": "2f34e44476624e6c240535cb97a0d7773f4e03bd"
     }
   }
 }
