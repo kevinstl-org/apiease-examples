@@ -1,6 +1,6 @@
 # How To Integrate A Third-Party API In Shopify
 
-This example answers the Stack Overflow question by showing the smallest APIEase setup you need to send new Shopify orders to a third-party API without building a custom backend first.
+This example answers the Stack Overflow question by showing the smallest APIEase setup you need to send new Shopify orders to a third-party API without building or hosting a custom backend.
 
 ## What this example does
 
@@ -11,6 +11,13 @@ This example answers the Stack Overflow question by showing the smallest APIEase
 ## Files
 
 - `resources/requests/send-shopify-order-to-third-party.json`: the APIEase HTTP request resource.
+
+That JSON request file defines:
+
+- the third-party API endpoint
+- the `POST` method
+- the `ORDERS_CREATE` webhook trigger
+- the sensitive `Authorization` header
 
 ## Beginner-friendly steps
 
@@ -24,7 +31,7 @@ apiease create request --file examples/how-to-integrate-third-party-api-in-shopi
 
 4. Confirm the webhook event is correct for your use case:
    `ORDERS_CREATE` sends the order as soon as Shopify creates it.
-   If your third-party system should only receive paid orders, change the trigger to the APIEase constant for the matching Shopify paid-order topic.
+   If your third-party system should only receive paid orders, change the trigger to the APIEase constant for that Shopify event. APIEase uses uppercase webhook constants that mirror the Shopify topic name, so a topic such as `orders/paid` would follow the pattern `ORDERS_PAID`. Use the exact constant for the Shopify event you want.
 5. Run a test order in Shopify and confirm the third-party API receives it.
 
 ## Why this is enough
@@ -37,7 +44,7 @@ For this use case you do not need to start by building a full custom Shopify app
 
 That covers the core integration path the question is asking about.
 
-The request does not need a saved body parameter because the latest APIEase webhook documentation says the Shopify webhook payload is already passed as the request body.
+The request does not need a saved body parameter because APIEase automatically forwards the full Shopify webhook payload as the request body. For this basic example, that means you do not need to manually construct the order JSON before sending it to the third-party API.
 
 ## When to extend this example
 
