@@ -1,0 +1,56 @@
+{
+  "id": "product-details-proxy",
+  "name": "Product Details Proxy",
+  "type": "http",
+  "method": "POST",
+  "address": "https://api.example.com/products/{productHandle}/details",
+  "parameters": [
+    {
+      "type": "header",
+      "name": "Accept",
+      "value": "application/json"
+    },
+    {
+      "type": "header",
+      "name": "Authorization",
+      "value": "Bearer {external_api_token}",
+      "sensitive": true
+    },
+    {
+      "type": "query",
+      "name": "include",
+      "value": "variants,images"
+    },
+    {
+      "type": "path",
+      "name": "productHandle",
+      "value": "sample-product"
+    },
+    {
+      "type": "body",
+      "value": "{\"requestedBy\":\"apiease-template\",\"preview\":true}"
+    }
+  ],
+  "triggers": [
+    {
+      "type": "webhook",
+      "webhook": {
+        "event": "products/update"
+      }
+    },
+    {
+      "type": "cron",
+      "cron": {
+        "value": "0 */6 * * *"
+      }
+    },
+    {
+      "type": "proxyEndpoint",
+      "proxyEndpoint": {
+        "path": "product-details",
+        "method": "GET",
+        "authenticated": true
+      }
+    }
+  ]
+}

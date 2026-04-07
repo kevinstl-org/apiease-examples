@@ -1,0 +1,7 @@
+{
+  "name": "apiease-template",
+  "private": true,
+  "scripts": {
+    "knowledge:pull-local": "node scripts/knowledgebase/pullApiEaseDocsKnowledgeBase.js"
+  }
+}

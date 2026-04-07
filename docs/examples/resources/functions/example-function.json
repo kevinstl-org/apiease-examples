@@ -1,0 +1,18 @@
+{
+  "name": "build_notice_message",
+  "description": "Returns a small message object from reusable Liquid inputs.",
+  "type": "liquid",
+  "parameters": [
+    {
+      "name": "subject",
+      "description": "Short label for the message.",
+      "type": "string"
+    },
+    {
+      "name": "value",
+      "description": "Main value to include in the message.",
+      "type": "string"
+    }
+  ],
+  "liquid": "{% assign normalized_subject = subject | default: 'Notice' | strip %}\n{% assign normalized_value = value | default: 'Replace this text.' | strip %}\n{\n  \"message\": \"{{ normalized_subject }}: {{ normalized_value }}\"\n}"
+}

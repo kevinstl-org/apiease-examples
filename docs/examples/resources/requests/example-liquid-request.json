@@ -1,0 +1,6 @@
+{
+  "id": "inventory-message-template",
+  "name": "Inventory Message Template",
+  "type": "liquid",
+  "liquid": "{% assign product_title = product.title | default: 'Unknown product' | strip %}\n{% function build_notice_message('Inventory lookup prepared for', product_title) as notice_message %}\n{\n  \"message\": \"{{ notice_message.message }}\"\n}"
+}

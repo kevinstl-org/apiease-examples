@@ -1,0 +1,17 @@
+{
+  "id": "set-support-variables",
+  "name": "Set Support Variables",
+  "type": "system",
+  "parameters": [
+    {
+      "type": "system",
+      "name": "function",
+      "value": "setVariables"
+    },
+    {
+      "type": "system",
+      "name": "arguments",
+      "value": "[{\"name\":\"support_email\",\"value\":\"help@example.com\"},{\"name\":\"support_api_key\",\"value\":\"replace-with-real-secret\",\"sensitive\":true}]"
+    }
+  ]
+}

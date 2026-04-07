@@ -1,0 +1,5 @@
+{
+  "name": "support_api_key",
+  "value": "replace-with-real-secret",
+  "sensitive": true
+}

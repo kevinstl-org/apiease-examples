@@ -1,0 +1,10 @@
+{
+  "widgetName": "Example Widget",
+  "widgetHandle": "example-widget",
+  "liquid": "<section class=\"apiease-example-widget\"><h2>Example Widget</h2><p data-role=\"status\">Loading widget...</p></section>",
+  "javascript": "const statusNode = document.querySelector('.apiease-example-widget [data-role=\"status\"]');\n\nif (statusNode) {\n  statusNode.textContent = 'Widget JavaScript loaded successfully.';\n}",
+  "externalJavascriptUrls": [
+    "https://cdn.example.com/widgets/example-widget.js"
+  ],
+  "disableJavascript": false
+}
