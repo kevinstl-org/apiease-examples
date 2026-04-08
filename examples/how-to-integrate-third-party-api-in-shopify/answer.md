@@ -10,7 +10,7 @@ For example, if you subscribe an endpoint to the `orders/create` webhook topic, 
 
 ### Why not just send the webhook directly to the third-party API?
 
-Sometimes you can, but in most real integrations it is not enough on its own.
+In some cases you can, but in most real integrations it is not enough on its own.
 
 The third-party API usually will not expect the exact same data structure that Shopify sends. It may require:
 - different field names
