@@ -8,7 +8,7 @@ A webhook is Shopify's way of notifying another system when an event happens in 
 
 For example, if you subscribe an endpoint to the `orders/create` webhook topic, Shopify will POST the webhook payload with the order data to that endpoint whenever a new order is created.
 
-### Why not just send the webhook directly to the third-party API?
+### Why not just send the webhook payload directly to the third-party API?
 
 In some cases you can, but in most real integrations it is not enough on its own.
 
