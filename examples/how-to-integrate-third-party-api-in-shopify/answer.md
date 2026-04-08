@@ -8,7 +8,7 @@ To understand how to do that, it helps to understand what a Shopify webhook is a
 
 A webhook is a mechanism Shopify provides to notify another system when events happen in your store.
 
-For example, if you register an endpoint for the `orders/create` webhook, Shopify will send a POST request with the order data to that endpoint whenever a new order is created.
+For example, if you subscribe an endpoint to the `orders/create` webhook topic, Shopify will POST the webhook payload with the order data to that endpoint whenever a new order is created.
 
 ### Why not just send the webhook directly to the third-party API?
 
@@ -26,16 +26,17 @@ Because of that mismatch, you usually need something in the middle to validate, 
 
 You typically need a backend layer for two reasons:
 
-1. It provides an endpoint for Shopify to send webhook data to
+1. It provides an endpoint for Shopify to POST webhook payloads to
 2. It lets you process and transform that data before sending it to the third-party API
+
 
 That backend is often part of a Shopify app, but it could also be another server-side integration layer. The important part is that it acts as a bridge between Shopify and the external system.
 
 ### The actual flow
 
-Shopify → webhook → your app/backend → third-party API
+Customer places order in Shopify → Shopify posts `orders/create` webhook payload to your subscribed endpoint → your app/backend processes the payload → your app/backend calls the third-party API with properly configured order data
 
-The main work is building and hosting that backend, including receiving the webhook, validating it, and transforming the data before calling the third-party API.
+The main work is building and hosting that backend, including accepting the webhook payload, validating it, and transforming it before calling the third-party API.
 
 ---
 
