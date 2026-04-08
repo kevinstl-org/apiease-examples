@@ -1,5 +1,3 @@
-# StackOverflow Answer Draft
-
 The goal is simple: send Shopify order data to a third-party API when an order is created.
 
 To understand how to do that, it helps to understand what a Shopify webhook is and why you usually need something server-side in the middle.
