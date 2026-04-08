@@ -43,7 +43,7 @@ The main work is building and hosting that backend, including accepting the webh
 
 If you want to avoid building and hosting your own backend, you can use an integration runtime that handles the webhook and API call for you.
 
-For example, with APIEase:
+With APIEase you can:
 
 - Configure a request triggered by `ORDERS_CREATE` (APIEase’s constant for Shopify’s `orders/create` webhook)
 - Set the request address to your third-party API endpoint
