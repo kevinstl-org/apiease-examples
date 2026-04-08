@@ -45,19 +45,20 @@ No matter how you implement it, the integration always looks like this:
 3. Your backend receives the webhook
 4. Your backend calls the third-party API with that data
 
-The main work is building and hosting that backend.
+The main work is building and hosting that backend, including receiving the webhook, validating it, and transforming the data before calling the third-party API.
 
 ---
 
 ## Minimal Alternative
 
-If you want to avoid building and hosting your own backend, you can use a managed layer that handles the webhook and API call for you.
+If you want to avoid building and hosting your own backend, you can use an integration runtime that handles the webhook and API call for you.
 
 For example, with APIEase:
 
 - Configure a request triggered by `ORDERS_CREATE` (APIEase’s constant for Shopify’s `orders/create` webhook)
-- Point it at your third-party API endpoint
+- Set the request address your third-party API endpoint
 - Add your API credentials as a secure header
+- Transform the request body as needed by the third-party API
 
 That’s enough to forward every new order automatically.
 
