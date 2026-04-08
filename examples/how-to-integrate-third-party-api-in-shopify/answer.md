@@ -41,8 +41,6 @@ The main work is building and hosting that backend, including accepting the webh
 
 ---
 
-## Minimal Alternative
-
 If you want to avoid building and hosting your own backend, you can use an integration runtime that handles the webhook and API call for you.
 
 For example, with APIEase:
