@@ -2,7 +2,7 @@
 
 The goal is simple: send Shopify order data to a third-party API when an order is created.
 
-To understand how to do that, it helps to understand what a Shopify webhook is and why you need an app.
+To understand how to do that, it helps to understand what a Shopify webhook is and why you usually need something server-side in the middle.
 
 ### What is a Shopify webhook?
 
@@ -12,38 +12,28 @@ For example, if you register an endpoint for the `orders/create` webhook, Shopif
 
 ### Why not just send the webhook directly to the third-party API?
 
-In most cases, you cannot do this.
+Sometimes you can, but in most real integrations it is not enough on its own.
 
-The third-party API will almost never expect the exact same data structure that Shopify sends. It may require:
+The third-party API usually will not expect the exact same data structure that Shopify sends. It may require:
 - different field names
 - a different JSON structure
 - authentication headers
 - additional computed values
 
-Because of this mismatch, you need something in the middle to transform the data.
+Because of that mismatch, you usually need something in the middle to validate, transform, and forward the data.
 
-### Why do you need to create a Shopify app?
+### Why do you usually need an app or backend?
 
-You need a backend (typically implemented as a Shopify app) for two reasons:
+You typically need a backend layer for two reasons:
 
 1. It provides an endpoint for Shopify to send webhook data to
 2. It lets you process and transform that data before sending it to the third-party API
 
-So the app acts as a bridge between Shopify and the external system.
+That backend is often part of a Shopify app, but it could also be another server-side integration layer. The important part is that it acts as a bridge between Shopify and the external system.
 
 ### The actual flow
 
 Shopify → webhook → your app/backend → third-party API
-
-
-## Putting That Together
-
-No matter how you implement it, the integration always looks like this:
-
-1. Shopify creates an order
-2. Shopify sends a webhook (`orders/create`)
-3. Your backend receives the webhook
-4. Your backend calls the third-party API with that data
 
 The main work is building and hosting that backend, including receiving the webhook, validating it, and transforming the data before calling the third-party API.
 
@@ -56,7 +46,7 @@ If you want to avoid building and hosting your own backend, you can use an integ
 For example, with APIEase:
 
 - Configure a request triggered by `ORDERS_CREATE` (APIEase’s constant for Shopify’s `orders/create` webhook)
-- Set the request address your third-party API endpoint
+- Set the request address to your third-party API endpoint
 - Add your API credentials as a secure header
 - Transform the request body as needed by the third-party API
 
