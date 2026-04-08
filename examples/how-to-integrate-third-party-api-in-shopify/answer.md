@@ -32,7 +32,10 @@ That backend is often part of a Shopify app, but it could also be another server
 
 ### The actual flow
 
-Customer places order in Shopify → Shopify posts `orders/create` webhook payload to your subscribed endpoint → your app/backend processes the payload → your app/backend calls the third-party API with properly configured order data
+1. A customer places an order in Shopify.
+2. Shopify POSTs the `orders/create` webhook payload to your subscribed endpoint.
+3. Your app or backend validates and processes that payload.
+4. Your app or backend calls the third-party API with properly configured order data.
 
 The main work is building and hosting that backend, including accepting the webhook payload, validating it, and transforming it before calling the third-party API.
 
