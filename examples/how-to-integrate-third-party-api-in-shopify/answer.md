@@ -1,6 +1,12 @@
-The goal is simple: send Shopify order data to a third-party API when an order is created.
+If you want to send Shopify orders to a third-party API when an order is created, it helps to understand what a webhook is and why you usually need something server-side in the middle.
 
-To understand how to do that, it helps to understand what a Shopify webhook is and why you usually need something server-side in the middle.
+## Steps to implement
+
+1. Create a backend (usually a Shopify app or server) with an endpoint to receive webhooks
+2. Subscribe that endpoint to the `orders/create` webhook
+3. Verify and process the webhook payload
+4. Transform the data to match your third-party API
+5. Send the data to the third-party API
 
 ### What is a Shopify webhook?
 
@@ -30,7 +36,7 @@ You typically need a backend layer for two reasons:
 
 That backend is often part of a Shopify app, but it could also be another server-side integration layer. The important part is that it acts as a bridge between Shopify and the external system.
 
-### In simple terms, the flow looks like this:
+### The flow looks like this:
 
 1. A customer places an order in Shopify.
 2. Shopify POSTs the `orders/create` webhook payload to your subscribed endpoint.

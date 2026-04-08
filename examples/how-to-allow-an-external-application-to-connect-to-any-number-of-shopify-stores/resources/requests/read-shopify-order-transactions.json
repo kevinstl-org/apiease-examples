@@ -1,0 +1,23 @@
+{
+  "id": "read-shopify-order-transactions",
+  "name": "Read Shopify Order Transactions",
+  "type": "http",
+  "method": "POST",
+  "address": "https://your-client-store.myshopify.com/admin/api/2025-10/graphql.json",
+  "parameters": [
+    {
+      "type": "header",
+      "name": "Accept",
+      "value": "application/json"
+    },
+    {
+      "type": "header",
+      "name": "Content-Type",
+      "value": "application/json"
+    },
+    {
+      "type": "body",
+      "value": "{\"query\":\"query ListOrderTransactions { orders(first: 10) { nodes { id name createdAt transactions(first: 10) { id kind status gateway processedAt amountSet { shopMoney { amount currencyCode } presentmentMoney { amount currencyCode } } } } } }\"}"
+    }
+  ]
+}
