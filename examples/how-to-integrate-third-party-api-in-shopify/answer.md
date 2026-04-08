@@ -41,17 +41,17 @@ The main work is building and hosting that backend, including accepting the webh
 
 ---
 
-If you want to avoid building and hosting your own backend, you can use an integration runtime that handles the webhook and API call for you.
+If you want to avoid building and hosting your own backend, you can use an integration runtime that handles the server-side webhook flow and outbound API call for you.
 
 With APIEase you can:
 
-- Configure a request triggered by `ORDERS_CREATE` (APIEase’s constant for Shopify’s `orders/create` webhook)
-- Set the request address to your third-party API endpoint
-- Add your API credentials as a secure header
-- Transform the request body as needed by the third-party API
+- Trigger a request on `ORDERS_CREATE` (APIEase’s constant for Shopify’s `orders/create` webhook topic)
+- Point that request at your third-party API endpoint
+- Store your API credentials in a sensitive header
+- Transform the payload to match the third-party API contract
 
-That’s enough to forward every new order automatically.
+For a basic integration, that is enough to forward each new order automatically.
 
-Here is a minimal working example:
+Working example:
 
 [github.com/kevinstl-org/apiease-examples/tree/main/examples/how-to-integrate-third-party-api-in-shopify](https://github.com/kevinstl-org/apiease-examples/tree/main/examples/how-to-integrate-third-party-api-in-shopify)
