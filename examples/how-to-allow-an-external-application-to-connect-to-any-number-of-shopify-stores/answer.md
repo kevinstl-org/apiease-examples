@@ -1,22 +1,22 @@
 What you are describing is a standalone Shopify app authorization flow. Your external application would be treated as a standalone app rather than a Shopify embedded Admin app.
 
-There is not a single universal Shopify URL that a standalone application can redirect to and then receive reusable credentials for arbitrary stores without first having a Shopify app involved. The app install and authorization flow is the mechanism that grants that access. [Shopify authorization code grant](https://shopify.dev/docs/apps/build/authentication-authorization/access-tokens/authorization-code-grant)
+There is not a single universal Shopify URL that a standalone application can redirect to and then receive reusable credentials for arbitrary stores without first having a Shopify app involved. The [app install and authorization flow](https://shopify.dev/docs/apps/build/authentication-authorization/access-tokens/authorization-code-grant) is the mechanism that grants that access.
 
 ## Typical Shopify approach
 
 If your external application needs to connect to any number of Shopify stores owned by your clients, the normal approach is to:
 
-- create a Shopify app in the Dev Dashboard. [Create apps in the Dev Dashboard](https://shopify.dev/docs/apps/build/dev-dashboard/create-apps-using-dev-dashboard)
+- create a Shopify app using the [Dev Dashboard](https://shopify.dev/docs/apps/build/dev-dashboard/create-apps-using-dev-dashboard)
 - have each client store authorize that app
 - receive and store a separate access token for each shop
 - subscribe each shop to webhooks if you want Shopify to push events such as orders to you
 - use the stored shop token whenever your system needs to call Shopify later
 
-For standalone apps, Shopify uses the authorization code grant flow. That flow is what allows a merchant to log in, select their store, and grant your application access. Once completed, your server receives a shop-specific access token, which you store and use for future API calls. [Shopify authorization code grant](https://shopify.dev/docs/apps/build/authentication-authorization/access-tokens/authorization-code-grant)
+For standalone apps, Shopify uses the [authorization code grant flow](https://shopify.dev/docs/apps/build/authentication-authorization/access-tokens/authorization-code-grant). That flow is what allows a merchant to log in, select their store, and grant your application access. Once completed, your server receives a shop-specific access token, which you store and use for future API calls.
 
 ## If your goal is transaction or order syncing
 
-If your goal is to listen for transactions, Shopify webhooks are the standard approach. After a shop installs your app, you register webhook subscriptions such as order events. Shopify then sends those events to your HTTPS endpoint. [Shopify HTTPS webhooks](https://shopify.dev/docs/apps/build/webhooks/subscribe/https)
+If your goal is to listen for transactions, [Shopify webhooks](https://shopify.dev/docs/apps/build/webhooks/subscribe/https) are the standard approach. After a shop installs your app, you register webhook subscriptions such as order events. Shopify then sends those events to your HTTPS endpoint.
 
 Your application should verify the webhook HMAC before processing the request so you know it actually came from Shopify.
 
