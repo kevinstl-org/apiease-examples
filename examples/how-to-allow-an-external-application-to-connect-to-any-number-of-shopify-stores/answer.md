@@ -11,7 +11,7 @@ There is not a single universal Shopify URL that an app can redirect to and then
 
 ## Data Synchronization
 
-If your goal is to listen for transactions, [Shopify webhooks](https://shopify.dev/docs/apps/build/webhooks/subscribe/https) are the standard approach. After a shop authorizes your app, you register webhook subscriptions such as order events. Shopify then sends those events to your HTTPS endpoint.
+If your goal is to listen for transactions, [Shopify webhooks](https://shopify.dev/docs/apps/build/webhooks/subscribe/https) are the standard real-time approach (as opposed to polling the API). After a shop authorizes your app, you register webhook subscriptions such as order events. Shopify will then send those events to your HTTPS endpoint.
 
 Your application should verify the webhook HMAC before processing the request so you know it actually came from Shopify.
 
