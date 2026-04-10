@@ -64,3 +64,11 @@ This example is based on the following Stack Overflow question:
 https://stackoverflow.com/questions/54859491/how-to-integrate-third-party-api-in-shopify
 
 If this helped you, consider sharing it with others who run into the same problem.
+
+## Official Links
+
+- [Shopify App](https://apps.shopify.com/apiease-admin): Install APIEase in Shopify.
+- [Website](https://www.apiease.com/): Product overview and platform information.
+- [Documentation](https://docs.apiease.com/): Guides, concepts, and implementation reference.
+- [CLI](https://github.com/kevinstl-org/apiease-cli): Command-line workflow for APIEase projects.
+- [Template](https://github.com/kevinstl-org/apiease-template): Starter repository for APIEase project structure.

@@ -57,3 +57,11 @@ That gives you one repeatable integration pattern across many Shopify stores wit
 - The request address must match the client shop domain for automatic Shopify token injection to apply.
 - Do not put Shopify Admin API credentials in browser code, theme code, or widgets.
 - If you need real-time push instead of polling, extend this example with a webhook-triggered request that forwards order or transaction data to your external application.
+
+## Official Links
+
+- [Shopify App](https://apps.shopify.com/apiease-admin): Install APIEase in Shopify.
+- [Website](https://www.apiease.com/): Product overview and platform information.
+- [Documentation](https://docs.apiease.com/): Guides, concepts, and implementation reference.
+- [CLI](https://github.com/kevinstl-org/apiease-cli): Command-line workflow for APIEase projects.
+- [Template](https://github.com/kevinstl-org/apiease-template): Starter repository for APIEase project structure.
