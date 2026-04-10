@@ -1,0 +1,33 @@
+{
+  "id": "forward-shopify-orders-to-external-application",
+  "name": "Forward Shopify Orders To External Application",
+  "type": "http",
+  "method": "POST",
+  "address": "https://your-external-application.example.com/webhooks/shopify-orders",
+  "parameters": [
+    {
+      "type": "header",
+      "name": "Accept",
+      "value": "application/json"
+    },
+    {
+      "type": "header",
+      "name": "Content-Type",
+      "value": "application/json"
+    },
+    {
+      "type": "header",
+      "name": "X-APIEASE-Shared-Secret",
+      "value": "replace-with-shared-secret",
+      "sensitive": true
+    }
+  ],
+  "triggers": [
+    {
+      "type": "webhook",
+      "webhook": {
+        "event": "ORDERS_CREATE"
+      }
+    }
+  ]
+}
