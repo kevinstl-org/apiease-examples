@@ -1,5 +1,7 @@
 What you are describing is a standalone Shopify app authorization flow. Your external application would be treated as a standalone app rather than a Shopify embedded Admin app.
 
+## Standalone App Admin API Access
+
 There is not a single universal Shopify URL that a standalone application can redirect to and then receive reusable credentials for arbitrary stores without first having a Shopify app involved. Instead, if your external application needs to connect to any number of Shopify stores owned by your clients, the normal approach is to use the [app install and authorization flow](https://shopify.dev/docs/apps/build/authentication-authorization/access-tokens/authorization-code-grant), which uses Shopify's authorization code grant flow:
 
 - create a Shopify app using the [Dev Dashboard](https://shopify.dev/docs/apps/build/dev-dashboard/create-apps-using-dev-dashboard)
