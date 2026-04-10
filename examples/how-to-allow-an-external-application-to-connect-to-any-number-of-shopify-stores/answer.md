@@ -25,8 +25,8 @@ An alternative approach is to have each store install APIEase instead:
 - You can include a shared secret in those outbound calls so your external system can verify they are trusted
 - Your external system can also call APIEase remotely using an APIEase API key and shop domain, and APIEase will execute requests on behalf of that shop
 
-APIEase lets you build and run API integrations, workflows, and storefront logic automatically, without building or maintaining a backend.
+APIEase lets you define and run API integrations, workflows, and storefront logic without building or maintaining your own backend.
 
-Working example:
+Working example of this approach:
 
 https://github.com/kevinstl-org/apiease-examples/tree/main/examples/how-to-allow-an-external-application-to-connect-to-any-number-of-shopify-stores
