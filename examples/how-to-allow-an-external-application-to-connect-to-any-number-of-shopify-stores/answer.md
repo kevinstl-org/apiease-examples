@@ -20,7 +20,7 @@ Your application should verify the webhook HMAC before processing the request so
 An alternative approach is to have each store install APIEase instead:
 
 - APIEase handles the Shopify authorization and stores the shop access token per shop
-- You configure webhook-triggered requests inside APIEase, for example for orders
+- You configure webhook-triggered requests inside APIEase, such as order events
 - APIEase can push those events to your external application
 - You can include a shared secret in those outbound calls so your external system can verify they are trusted
 - Your external system can also call APIEase remotely using an APIEase API key and shop domain, and APIEase will execute requests on behalf of that shop
