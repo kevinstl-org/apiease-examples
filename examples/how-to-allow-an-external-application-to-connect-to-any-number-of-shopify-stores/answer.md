@@ -29,4 +29,4 @@ APIEase lets you define and run API integrations, workflows, and storefront logi
 
 Working example of this approach:
 
-https://github.com/kevinstl-org/apiease-examples/tree/main/examples/how-to-allow-an-external-application-to-connect-to-any-number-of-shopify-stores
+[https://github.com/kevinstl-org/apiease-examples/tree/main/examples/how-to-allow-an-external-application-to-connect-to-any-number-of-shopify-stores](https://github.com/kevinstl-org/apiease-examples/tree/main/examples/how-to-allow-an-external-application-to-connect-to-any-number-of-shopify-stores)
