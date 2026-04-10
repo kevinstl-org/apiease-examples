@@ -9,20 +9,13 @@ If your external application needs to connect to any number of Shopify stores ow
 - create a Shopify app using the [Dev Dashboard](https://shopify.dev/docs/apps/build/dev-dashboard/create-apps-using-dev-dashboard)
 - have each client store authorize that app
 - receive and store a separate access token for each shop
-- subscribe each shop to webhooks if you want Shopify to push events such as orders to you
 - use the stored shop token whenever your system needs to call Shopify later
 
 ## If your goal is transaction or order syncing
 
-If your goal is to listen for transactions, [Shopify webhooks](https://shopify.dev/docs/apps/build/webhooks/subscribe/https) are the standard approach. After a shop installs your app, you register webhook subscriptions such as order events. Shopify then sends those events to your HTTPS endpoint.
+If your goal is to listen for transactions, [Shopify webhooks](https://shopify.dev/docs/apps/build/webhooks/subscribe/https) are the standard approach. After a shop authorizes your app, you register webhook subscriptions such as order events. Shopify then sends those events to your HTTPS endpoint.
 
 Your application should verify the webhook HMAC before processing the request so you know it actually came from Shopify.
-
-In practice, your external system becomes a multi-tenant system keyed by shop:
-
-- each shop installs and authorizes your app
-- you store an access token per shop
-- you receive events via webhooks and/or call the Admin API using that token
 
 ## APIEase alternative
 
