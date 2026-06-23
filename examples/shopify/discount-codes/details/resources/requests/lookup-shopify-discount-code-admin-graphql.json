@@ -1,0 +1,26 @@
+{
+  "id": "lookup-shopify-discount-code-admin-graphql",
+  "name": "Lookup Shopify Discount Code Admin GraphQL",
+  "type": "http",
+  "method": "POST",
+  "address": "https://your-store.myshopify.com/admin/api/2026-04/graphql.json",
+  "parameters": [
+    {
+      "type": "header",
+      "name": "Accept",
+      "value": "application/json",
+      "sensitive": false
+    },
+    {
+      "type": "header",
+      "name": "Content-Type",
+      "value": "application/json",
+      "sensitive": false
+    },
+    {
+      "type": "body",
+      "value": "{\"query\":\"query DiscountCodeLookup($code: String!) { codeDiscountNodeByCode(code: $code) { id codeDiscount { __typename ... on DiscountCodeBasic { title status startsAt endsAt usageLimit asyncUsageCount shortSummary summary codes(first: 10) { nodes { code } } customerGets { value { __typename ... on DiscountPercentage { percentage } ... on DiscountAmount { amount { amount currencyCode } appliesOnEachItem } } items { __typename ... on DiscountProducts { products(first: 10) { nodes { id title handle onlineStoreUrl } } } ... on DiscountCollections { collections(first: 10) { nodes { id title handle } } } ... on AllDiscountItems { allItems } } } minimumRequirement { __typename ... on DiscountMinimumSubtotal { greaterThanOrEqualToSubtotal { amount currencyCode } } ... on DiscountMinimumQuantity { greaterThanOrEqualToQuantity } } } ... on DiscountCodeBxgy { title status startsAt endsAt usageLimit asyncUsageCount summary codes(first: 10) { nodes { code } } customerGets { value { __typename ... on DiscountPercentage { percentage } ... on DiscountAmount { amount { amount currencyCode } appliesOnEachItem } } items { __typename ... on DiscountProducts { products(first: 10) { nodes { id title handle onlineStoreUrl } } } ... on DiscountCollections { collections(first: 10) { nodes { id title handle } } } ... on AllDiscountItems { allItems } } } } ... on DiscountCodeFreeShipping { title status startsAt endsAt usageLimit asyncUsageCount shortSummary summary codes(first: 10) { nodes { code } } minimumRequirement { __typename ... on DiscountMinimumSubtotal { greaterThanOrEqualToSubtotal { amount currencyCode } } ... on DiscountMinimumQuantity { greaterThanOrEqualToQuantity } } } } } }\",\"variables\":{\"code\":\"\"}}",
+      "sensitive": false
+    }
+  ]
+}
