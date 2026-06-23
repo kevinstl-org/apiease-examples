@@ -48,6 +48,12 @@ apiease create request --file examples/shopify/discount-codes/details/resources/
 apiease create widget --file examples/shopify/discount-codes/details/resources/widgets/lookup-shopify-discount-code-details.json
 ```
 
+Or create all three resources with the included script. When you pass the shop domain to the script, it creates a temporary copy of the internal Admin GraphQL request with the placeholder host replaced, so you do not need to edit the example JSON first.
+
+```bash
+APIEASE_SHOP_DOMAIN=your-store.myshopify.com examples/shopify/discount-codes/details/create-resources.sh
+```
+
 6. Add the APIEase app block to the desired theme template or page and set the widget handle to `lookup-shopify-discount-code-details`.
 7. Test with an existing discount code.
 
