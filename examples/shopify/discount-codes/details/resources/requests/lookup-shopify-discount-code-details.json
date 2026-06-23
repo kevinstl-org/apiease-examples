@@ -7,14 +7,8 @@
     {
       "type": "liquid",
       "name": "code",
-      "value": "",
+      "value": "replace-at-runtime",
       "sensitive": false
-    }
-  ],
-  "triggers": [
-    {
-      "type": "storefrontAppProxy",
-      "storefrontAppProxy": {}
     }
   ]
 }
