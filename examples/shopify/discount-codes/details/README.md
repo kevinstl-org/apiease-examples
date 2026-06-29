@@ -54,10 +54,14 @@ For a working install, prefer the script below. APIEase may generate request IDs
 APIEASE_SHOP_DOMAIN=your-store.myshopify.com examples/shopify/discount-codes/details/create-resources.sh
 ```
 
-If a previous run already created the internal Admin GraphQL request, reuse its generated request ID:
+The script saves the shop domain and generated IDs to `examples/shopify/discount-codes/details/.apiease-resource-ids.env`. Later runs read that file, update existing resources when they still exist, and create replacements when a saved ID no longer exists. If the saved shop domain does not match the current shop domain, the state file is ignored. This means you can rerun the script after editing the example files, and you can also delete the APIEase resources and rerun the script to create a fresh set.
+
+If you already have resource IDs from an earlier run, pass them explicitly or place them in the state file:
 
 ```bash
 APIEASE_ADMIN_REQUEST_ID=02c691f0-6f2f-11f1-907b-cbbded67d8c7 \
+APIEASE_LIQUID_REQUEST_ID=61837890-6f32-11f1-907b-cbbded67d8c7 \
+APIEASE_WIDGET_ID=61f17ca0-6f32-11f1-907b-cbbded67d8c7 \
   examples/shopify/discount-codes/details/create-resources.sh store-apiease-admin-local.myshopify.com
 ```
 
@@ -65,7 +69,7 @@ APIEASE_ADMIN_REQUEST_ID=02c691f0-6f2f-11f1-907b-cbbded67d8c7 \
 7. Add the APIEase app block to the desired theme template or page and set the widget handle to `lookup-shopify-discount-code-details`.
 8. Test with an existing discount code.
 
-The public resource API used by `apiease create request` may not support creating the Storefront App Proxy trigger directly. The runtime trigger type for storefront calls is `storefrontAppProxy`, but add it from the APIEase admin when the public API rejects that trigger field.
+The public resource API used by `apiease create request` may not support creating the Storefront App Proxy trigger directly. The runtime trigger type for storefront calls is `storefrontAppProxy`, but add it from the APIEase admin when the public API rejects that trigger field. The script intentionally omits triggers from the Liquid request payload so the public API accepts the create/update request and the admin-managed Storefront App Proxy trigger can stay attached to the saved request.
 
 If you use the manual commands instead of the script, update the Liquid request to call the generated Admin GraphQL request ID, and update the widget `data-request-id` to the generated Liquid request ID before creating the dependent resource.
 
