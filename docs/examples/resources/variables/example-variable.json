@@ -1,5 +1,6 @@
 {
-  "name": "support_api_key",
+  "handle": "support-api-key",
+  "name": "Support API Key",
   "value": "replace-with-real-secret",
   "sensitive": true
 }

@@ -1,5 +1,5 @@
 {
-  "id": "product-details-proxy",
+  "handle": "product-details-proxy",
   "name": "Product Details Proxy",
   "type": "http",
   "method": "POST",

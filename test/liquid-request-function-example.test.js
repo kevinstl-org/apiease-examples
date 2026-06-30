@@ -33,13 +33,19 @@ assert.equal(
 
 assert.match(
   exampleLiquidRequest.liquid,
-  new RegExp(String.raw`{%\s*function\s+${exampleFunction.name}\s*\(`),
-  "Expected the liquid request example to call the saved function example by name with the documented inline function tag syntax.",
+  new RegExp(String.raw`"functionName"\s*:\s*"${exampleFunction.name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}"`),
+  "Expected the liquid request example to use the current supported Function name fallback until Liquid supports handle references.",
+);
+
+assert.doesNotMatch(
+  exampleLiquidRequest.liquid,
+  /functionId/,
+  "Expected the liquid request example not to store or reference a server-owned Function id.",
 );
 
 assert.match(
   exampleLiquidRequest.liquid,
-  /{%\s*function\s+.+\s+as\s+\w+\s*%}/,
+  /{%\s*function\s+[\s\S]+?\s+as\s+\w+\s*%}/,
   "Expected the liquid request example to assign the function result with the required 'as <name>' syntax.",
 );
 

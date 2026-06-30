@@ -45,9 +45,9 @@ assert.match(
 
 [
   "create function --file docs/examples/resources/functions/example-function.json",
-  "read function --function-id <function-id>",
-  "update function --function-id <function-id> --file docs/examples/resources/functions/example-function.json",
-  "delete function --function-id <function-id>",
+  "read function --function-id <function-handle>",
+  "update function --function-id <function-handle> --file docs/examples/resources/functions/example-function.json",
+  "delete function --function-id <function-handle>",
 ].forEach((commandExample) => {
   assert.match(
     templateReadme,
@@ -55,5 +55,56 @@ assert.match(
     `Expected README.md to include the command example '${commandExample}'.`,
   );
 });
+
+[
+  "read widget --widget-id <widget-handle>",
+  "read variable --variable-name <variable-handle>",
+  "update widget --widget-id <widget-handle> --file docs/examples/resources/widgets/example-widget.json",
+  "update variable --variable-name <variable-handle> --file docs/examples/resources/variables/example-variable.json",
+  "delete widget --widget-id <widget-handle>",
+  "delete variable --variable-name <variable-handle>",
+].forEach((commandExample) => {
+  assert.match(
+    templateReadme,
+    new RegExp(commandExample.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")),
+    `Expected README.md to use a handle placeholder in the command example '${commandExample}'.`,
+  );
+});
+
+[
+  "<widget-id>",
+  "<variable-name>",
+  "<function-id>",
+].forEach((legacyIdentifierPlaceholder) => {
+  assert.doesNotMatch(
+    templateReadme,
+    new RegExp(legacyIdentifierPlaceholder.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")),
+    `Expected README.md not to prefer the legacy identifier placeholder '${legacyIdentifierPlaceholder}'.`,
+  );
+});
+
+assert.match(
+  templateReadme,
+  /Create commands read the resource handle from the JSON file\./,
+  "Expected README.md to explain that create flows use handles from source JSON files.",
+);
+
+assert.match(
+  templateReadme,
+  /Requests, widgets, variables, and functions should use `handle` as the stable public identifier\./,
+  "Expected README.md to describe handle as the preferred identifier for every supported resource type.",
+);
+
+assert.match(
+  templateReadme,
+  /Function source files include `handle` as the target stable identifier\./,
+  "Expected README.md to describe Function source files as handle-first.",
+);
+
+assert.match(
+  templateReadme,
+  /Liquid Function tag supports `functionName` or `functionId`, but not a handle-named field yet\./,
+  "Expected README.md to document the current Liquid Function handle invocation deferral.",
+);
 
 console.log("template-function-guidance.test.js: passed");

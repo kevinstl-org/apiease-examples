@@ -1,5 +1,6 @@
 {
-  "name": "build_notice_message",
+  "handle": "build-notice-message",
+  "name": "Build Notice Message",
   "description": "Returns a small message object from reusable Liquid inputs.",
   "type": "liquid",
   "parameters": [
