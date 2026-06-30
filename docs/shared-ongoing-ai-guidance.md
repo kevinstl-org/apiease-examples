@@ -4,6 +4,19 @@ Use this file for shared implementation lessons that should apply across APIEase
 
 Add concise, reusable guidance here when real-world implementation work reveals behavior that agents should not re-learn project by project.
 
+## APIEase Resource Identifier Guidance
+
+Use these directives when creating or reviewing repository-managed APIEase resources, examples, Liquid, CLI commands, and docs.
+
+- Treat requests, widgets, variables, and functions as first-class APIEase resources with a server-owned immutable `id`, a merchant-controlled `handle`, and a human-readable `name`.
+- Prefer `handle` as the stable public identifier for resources. Do not store server-owned `id` values in template resource source files or examples. Use `name` only as display text.
+- For request source files, `handle` is the stable repository identifier. Request handles should be lowercase slugs using letters, numbers, and hyphens, for example `product-details-proxy`.
+- For request CLI read, update, and delete flows, `--request-id` remains the compatibility option name. Pass a request handle through that option unless explicitly addressing a legacy server-owned id.
+- When a request source file has a valid `handle`, `apiease create request --file <path>` is idempotent: it creates the request when the handle does not exist and updates the existing request when it does.
+- For older request source files that still contain `id` metadata or no `handle`, use `apiease create request --file <path> --auto-update-source-identifier` to migrate only the local identifier metadata.
+- APIEase request invocation surfaces may still use the parameter name `requestId`. In Liquid `call` tags, storefront calls, remote calls, and Flow conditions, provide or compare the request handle as the `requestId` value whenever possible.
+- For chained request references, prefer the request handle when the APIEase surface supports it. Use names only as compatibility fallback display identifiers.
+
 ## APIEase Liquid Runtime Constraints
 
 Use these directives when generating or reviewing Liquid for APIEase.
