@@ -24,6 +24,12 @@ assert.match(
   "Expected the storefront widget to send the entered code via liquidParamsEmbedded.",
 );
 
+assert.deepEqual(
+  lookupRequest.triggers,
+  [{type: "storefrontAppProxy"}],
+  "Expected the storefront-facing Liquid request to include the Storefront App Proxy trigger.",
+);
+
 assert.match(
   lookupRequest.liquid,
   /apiEaseParameters\.liquidParams\.code/,
