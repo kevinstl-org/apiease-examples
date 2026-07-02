@@ -18,6 +18,7 @@ Use these directives when creating or reviewing repository-managed APIEase resou
 - For older request source files that still contain `id` metadata or no `handle`, use `apiease create request --file <path> --auto-update-source-identifier` to migrate only the local identifier metadata.
 - APIEase request invocation surfaces may still use the parameter name `requestId`. In Liquid `call` tags, storefront calls, remote calls, and Flow conditions, provide or compare the request handle as the `requestId` value whenever possible.
 - For chained request references, prefer the request handle when the APIEase surface supports it. Use names only as compatibility fallback display identifiers.
+- The current public request create API rejects Storefront App Proxy trigger fields in source payloads. For requests called directly through Shopify's app proxy, create or update the request source without that trigger, then add the Storefront App Proxy trigger in APIEase admin.
 
 ## APIEase Liquid Runtime Constraints
 

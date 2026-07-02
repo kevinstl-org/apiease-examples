@@ -26,8 +26,8 @@ assert.match(
 
 assert.deepEqual(
   lookupRequest.triggers,
-  [{type: "storefrontAppProxy", storefrontAppProxy: {}}],
-  "Expected the storefront-facing Liquid request to include the public API Storefront App Proxy trigger shape.",
+  undefined,
+  "Expected the storefront-facing Liquid request source not to include Storefront App Proxy triggers while the public create API rejects them.",
 );
 
 assert.match(

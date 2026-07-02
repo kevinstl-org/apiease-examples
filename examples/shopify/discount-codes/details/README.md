@@ -23,7 +23,7 @@ Theme Extension -> Shopify App Proxy -> APIEase -> Shopify Admin GraphQL
 ## Files
 
 - `resources/requests/lookup-shopify-discount-code-admin-graphql.json`: the internal Shopify Admin GraphQL HTTP request.
-- `resources/requests/lookup-shopify-discount-code-details.json`: the storefront-facing Liquid request that shapes the response and includes the Storefront App Proxy trigger.
+- `resources/requests/lookup-shopify-discount-code-details.json`: the storefront-facing Liquid request that shapes the response. Add the Storefront App Proxy trigger to this request in the APIEase admin after creating it.
 - `resources/widgets/lookup-shopify-discount-code-details.json`: the reusable storefront widget.
 - `answer.md`: short community-answer copy that links to this example.
 
@@ -56,8 +56,11 @@ For a working install, prefer the script below. It passes `--auto-update-source-
 APIEASE_SHOP_DOMAIN=your-store.myshopify.com examples/shopify/discount-codes/details/create-resources.sh
 ```
 
-6. Add the APIEase app block to the desired theme template or page and set the widget handle to `lookup-shopify-discount-code-details`.
-7. Test with an existing discount code.
+6. Add the Storefront App Proxy trigger to the Liquid request in the APIEase admin. The Liquid request handle is `lookup-shopify-discount-code-details`.
+7. Add the APIEase app block to the desired theme template or page and set the widget handle to `lookup-shopify-discount-code-details`.
+8. Test with an existing discount code.
+
+The current public resource API rejects Storefront App Proxy triggers in request create payloads. Create or update the Liquid request from this source file, then add the Storefront App Proxy trigger in APIEase admin.
 
 If you use the manual commands instead of the script, replace `your-store.myshopify.com` in the Admin GraphQL request file before creating it.
 
