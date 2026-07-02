@@ -9,7 +9,6 @@ widget_file="$script_dir/resources/widgets/lookup-shopify-discount-code-details.
 
 shop_domain="${1:-${APIEASE_SHOP_DOMAIN:-}}"
 shop_args=()
-admin_request_to_create=""
 
 usage() {
   cat >&2 <<'USAGE'
@@ -18,18 +17,10 @@ Usage:
   ./create-resources.sh your-store.myshopify.com
 
 The script reads APIEase API key and base URL configuration the same way the
-apiease CLI does. The shop domain is used both for the CLI --shop-domain flag
-and to replace the placeholder Shopify Admin GraphQL host in a temporary copy of
-the internal Admin GraphQL request resource.
+apiease CLI does. When provided, the shop domain is passed through to the CLI
+with --shop-domain.
 USAGE
 }
-
-cleanup() {
-  if [[ -n "${admin_request_to_create:-}" && -f "$admin_request_to_create" ]]; then
-    rm -f "$admin_request_to_create"
-  fi
-}
-trap cleanup EXIT
 
 require_command() {
   local command_name="$1"
@@ -46,24 +37,13 @@ create_request() {
   apiease create request --file "$file" --auto-update-source-identifier "${shop_args[@]}"
 }
 
-create_admin_request_file() {
-  local output_file="$1"
+create_widget() {
+  local file="$1"
 
-  SHOP_DOMAIN="$shop_domain" INPUT_FILE="$admin_request_file" OUTPUT_FILE="$output_file" node <<'NODE'
-const fs = require('fs');
-
-const shopDomain = process.env.SHOP_DOMAIN;
-const inputFile = process.env.INPUT_FILE;
-const outputFile = process.env.OUTPUT_FILE;
-
-const resource = JSON.parse(fs.readFileSync(inputFile, 'utf8'));
-resource.address = resource.address.replace('your-store.myshopify.com', shopDomain);
-fs.writeFileSync(outputFile, `${JSON.stringify(resource, null, 2)}\n`);
-NODE
+  apiease create widget --file "$file" --auto-update-source-identifier "${shop_args[@]}"
 }
 
 require_command apiease
-require_command node
 
 if [[ -n "$shop_domain" ]]; then
   if [[ "$shop_domain" == http://* || "$shop_domain" == https://* || "$shop_domain" == */* ]]; then
@@ -79,15 +59,12 @@ else
   exit 1
 fi
 
-admin_request_to_create="$(mktemp "${TMPDIR:-/tmp}/apiease-discount-code-admin-graphql.XXXXXX.json")"
-create_admin_request_file "$admin_request_to_create"
-
 echo "Creating internal Shopify Admin GraphQL request..."
-create_request "$admin_request_to_create"
+create_request "$admin_request_file"
 echo "Creating storefront-facing Liquid request..."
 create_request "$liquid_request_file"
 echo "Creating storefront widget..."
-apiease create widget --file "$widget_file" "${shop_args[@]}"
+create_widget "$widget_file"
 
 echo "Done."
 echo "Internal Admin GraphQL request handle: lookup-shopify-discount-code-admin-graphql"
