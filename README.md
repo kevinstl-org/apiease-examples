@@ -71,7 +71,9 @@ Function source files include `handle` as the target stable identifier. The curr
 
 Prefer the handle-named `--request-handle`, `--widget-handle`, `--variable-handle`, and `--function-handle` options for read, update, and delete flows. The older `--request-id`, `--widget-id`, `--variable-name`, and `--function-id` option names remain compatibility aliases; pass resource handles through those aliases only when maintaining older scripts.
 
-When a request source file has a valid `handle`, `apiease create request` is idempotent: it creates the request if the handle does not exist, or updates the existing request with that handle if it does. The same handle-first identity model applies to widgets, variables, and functions.
+`apiease create` is idempotent by `handle` for request, widget, variable, and function source files. When a source file has a valid `handle`, the CLI looks up the remote resource by handle, updates it when found, and creates it when missing.
+
+Lookup failures other than not found stop the command instead of falling back to create. Human output reports either `<Resource> created successfully.` or `<Resource> updated successfully.`, and JSON output includes `operation` as `created` or `updated`.
 
 For older request files that still contain `id` or no `handle`, run `apiease create request --file <path> --auto-update-source-identifier` to migrate only the local identifier metadata.
 

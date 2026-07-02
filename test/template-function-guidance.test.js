@@ -12,6 +12,7 @@ function readProjectFile(relativePath) {
 
 const agentsGuidance = readProjectFile("AGENTS.md");
 const templateReadme = readProjectFile("README.md");
+const sharedGuidance = readProjectFile("docs/shared-ongoing-ai-guidance.md");
 
 assert.match(
   agentsGuidance,
@@ -97,6 +98,24 @@ assert.match(
 
 assert.match(
   templateReadme,
+  /`apiease create` is idempotent by `handle` for request, widget, variable, and function source files\./,
+  "Expected README.md to document create-or-update behavior for every supported resource type.",
+);
+
+assert.match(
+  templateReadme,
+  /Lookup failures other than not found stop the command instead of falling back to create\./,
+  "Expected README.md to document create-or-update lookup failure behavior.",
+);
+
+assert.match(
+  templateReadme,
+  /JSON output includes `operation` as `created` or `updated`\./,
+  "Expected README.md to document create-or-update JSON operation output.",
+);
+
+assert.match(
+  templateReadme,
   /Function source files include `handle` as the target stable identifier\./,
   "Expected README.md to describe Function source files as handle-first.",
 );
@@ -105,6 +124,12 @@ assert.match(
   templateReadme,
   /Liquid Function tag supports `functionName` or `functionId`, but not a handle-named field yet\./,
   "Expected README.md to document the current Liquid Function handle invocation deferral.",
+);
+
+assert.match(
+  sharedGuidance,
+  /When a request, widget, variable, or function source file has a valid `handle`, `apiease create <resource> --file <path>` is idempotent/,
+  "Expected shared guidance to document create-or-update behavior for every supported resource type.",
 );
 
 console.log("template-function-guidance.test.js: passed");

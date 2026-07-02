@@ -27,6 +27,7 @@ These directives come from real runtime failures observed during client validati
 
 - Do not place filtered expressions directly in `if` conditions in APIEase Liquid. Compute filtered values with `assign` first, then compare plain variables.
 - Do not assume nested response properties are null-safe in APIEase Liquid. Check key presence before dereferencing paths like `response.data.errors` or `result.userErrors`.
+- Storefront `liquidParamsEmbedded` values are exposed inside Liquid requests under `apiEaseParameters.liquidParams`, not `apiEaseParameters.liquid`. Guard nested `apiEaseParameters.liquidParams.<name>` reads the same way as response payload reads.
 
 ## Known Failure Modes
 
@@ -76,3 +77,31 @@ Safe pattern:
 ```
 
 Apply the same pattern to any nested path. Confirm the parent payload contains the key before dereferencing the nested property.
+
+### 3. `liquidParamsEmbedded` Uses `apiEaseParameters.liquidParams`
+
+Observed error:
+
+```text
+Error during liquid call dispatch: undefined variable: apiEaseParameters.liquid.code, line:1, col:27
+```
+
+Problem pattern:
+
+```liquid
+{% assign discount_code = apiEaseParameters.liquid.code | default: '' | strip %}
+```
+
+Safe pattern:
+
+```liquid
+{% assign discount_code = '' %}
+{% assign api_ease_parameters_json = apiEaseParameters | json %}
+{% assign liquid_params_json = '{}' %}
+{% if api_ease_parameters_json contains '"liquidParams"' %}
+  {% assign liquid_params_json = apiEaseParameters.liquidParams | json %}
+{% endif %}
+{% if liquid_params_json contains '"code":' %}
+  {% assign discount_code = apiEaseParameters.liquidParams.code | default: '' | strip %}
+{% endif %}
+```
