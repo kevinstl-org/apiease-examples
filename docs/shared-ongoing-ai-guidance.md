@@ -4,6 +4,8 @@ Use this file for shared implementation lessons that should apply across APIEase
 
 Add concise, reusable guidance here when real-world implementation work reveals behavior that agents should not re-learn project by project.
 
+Prefer `docs/knowledgebase/apiEaseDocsConsolidated.md` for documented APIEase product behavior and examples. Keep this file focused on implementation constraints or runtime lessons that are not already covered by the generated knowledge base.
+
 ## APIEase Resource Identifier Guidance
 
 Use these directives when creating or reviewing repository-managed APIEase resources, examples, Liquid, CLI commands, and docs.
@@ -12,7 +14,7 @@ Use these directives when creating or reviewing repository-managed APIEase resou
 - Prefer `handle` as the stable public identifier for resources. Do not store server-owned `id` values in template resource source files or examples. Use `name` only as display text.
 - For request source files, `handle` is the stable repository identifier. Request handles should be lowercase slugs using letters, numbers, and hyphens, for example `product-details-proxy`.
 - For CLI read, update, and delete flows, prefer the resource-specific handle flags: `--request-handle`, `--widget-handle`, `--variable-handle`, and `--function-handle`. Legacy flags such as `--request-id`, `--widget-id`, `--variable-name`, and `--function-id` remain compatibility aliases; pass handles through them only when maintaining older scripts.
-- When a request source file has a valid `handle`, `apiease create request --file <path>` is idempotent: it creates the request when the handle does not exist and updates the existing request when it does.
+- When a request, widget, variable, or function source file has a valid `handle`, `apiease create <resource> --file <path>` is idempotent: it creates the resource when the handle does not exist and updates the existing resource when it does.
 - For older request source files that still contain `id` metadata or no `handle`, use `apiease create request --file <path> --auto-update-source-identifier` to migrate only the local identifier metadata.
 - APIEase request invocation surfaces may still use the parameter name `requestId`. In Liquid `call` tags, storefront calls, remote calls, and Flow conditions, provide or compare the request handle as the `requestId` value whenever possible.
 - For chained request references, prefer the request handle when the APIEase surface supports it. Use names only as compatibility fallback display identifiers.
@@ -27,7 +29,6 @@ These directives come from real runtime failures observed during client validati
 
 - Do not place filtered expressions directly in `if` conditions in APIEase Liquid. Compute filtered values with `assign` first, then compare plain variables.
 - Do not assume nested response properties are null-safe in APIEase Liquid. Check key presence before dereferencing paths like `response.data.errors` or `result.userErrors`.
-- Storefront `liquidParamsEmbedded` values are exposed inside Liquid requests under `apiEaseParameters.liquidParams`, not `apiEaseParameters.liquid`. Guard nested `apiEaseParameters.liquidParams.<name>` reads the same way as response payload reads.
 
 ## Known Failure Modes
 
@@ -77,31 +78,3 @@ Safe pattern:
 ```
 
 Apply the same pattern to any nested path. Confirm the parent payload contains the key before dereferencing the nested property.
-
-### 3. `liquidParamsEmbedded` Uses `apiEaseParameters.liquidParams`
-
-Observed error:
-
-```text
-Error during liquid call dispatch: undefined variable: apiEaseParameters.liquid.code, line:1, col:27
-```
-
-Problem pattern:
-
-```liquid
-{% assign discount_code = apiEaseParameters.liquid.code | default: '' | strip %}
-```
-
-Safe pattern:
-
-```liquid
-{% assign discount_code = '' %}
-{% assign api_ease_parameters_json = apiEaseParameters | json %}
-{% assign liquid_params_json = '{}' %}
-{% if api_ease_parameters_json contains '"liquidParams"' %}
-  {% assign liquid_params_json = apiEaseParameters.liquidParams | json %}
-{% endif %}
-{% if liquid_params_json contains '"code":' %}
-  {% assign discount_code = apiEaseParameters.liquidParams.code | default: '' | strip %}
-{% endif %}
-```

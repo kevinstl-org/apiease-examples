@@ -4,7 +4,7 @@ This example shows how a Shopify storefront or theme extension can look up disco
 
 Theme extensions run in the storefront. Storefront JavaScript and Liquid are inspectable by customers, so they should not contain Shopify Admin API access tokens. This example sends only the discount code from the storefront to APIEase through Shopify App Proxy. APIEase runs the Shopify Admin GraphQL request server-side and returns safe display data.
 
-The widget sends the discount code through `liquidParamsEmbedded`; inside the Liquid request, APIEase exposes that value at `apiEaseParameters.liquidParams.code`.
+The widget follows APIEase's documented runtime embedded Liquid parameter pattern and sends only the entered discount code to the Liquid request.
 
 Architecture:
 
