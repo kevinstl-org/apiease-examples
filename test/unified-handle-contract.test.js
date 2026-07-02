@@ -49,7 +49,7 @@ const handleFieldsByResourcePath = new Map([
   ["docs/examples/resources/requests/example-system-request.json", "handle"],
   ["docs/examples/resources/variables/example-variable.json", "handle"],
   ["docs/examples/resources/functions/example-function.json", "handle"],
-  ["docs/examples/resources/widgets/example-widget.json", "widgetHandle"],
+  ["docs/examples/resources/widgets/example-widget.json", "handle"],
 ]);
 
 exampleResourcePaths.forEach((relativePath) => {
@@ -126,18 +126,18 @@ assert.doesNotMatch(
 
 const templateReadme = readProjectFile("README.md");
 [
-  "read request --request-id <request-handle>",
-  "read widget --widget-id <widget-handle>",
-  "read variable --variable-name <variable-handle>",
-  "read function --function-id <function-handle>",
-  "update request --request-id <request-handle>",
-  "update widget --widget-id <widget-handle>",
-  "update variable --variable-name <variable-handle>",
-  "update function --function-id <function-handle>",
-  "delete request --request-id <request-handle>",
-  "delete widget --widget-id <widget-handle>",
-  "delete variable --variable-name <variable-handle>",
-  "delete function --function-id <function-handle>",
+  "read request --request-handle <request-handle>",
+  "read widget --widget-handle <widget-handle>",
+  "read variable --variable-handle <variable-handle>",
+  "read function --function-handle <function-handle>",
+  "update request --request-handle <request-handle>",
+  "update widget --widget-handle <widget-handle>",
+  "update variable --variable-handle <variable-handle>",
+  "update function --function-handle <function-handle>",
+  "delete request --request-handle <request-handle>",
+  "delete widget --widget-handle <widget-handle>",
+  "delete variable --variable-handle <variable-handle>",
+  "delete function --function-handle <function-handle>",
 ].forEach((commandExample) => {
   assert.match(
     templateReadme,

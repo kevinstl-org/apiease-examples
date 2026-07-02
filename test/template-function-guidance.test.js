@@ -45,9 +45,9 @@ assert.match(
 
 [
   "create function --file docs/examples/resources/functions/example-function.json",
-  "read function --function-id <function-handle>",
-  "update function --function-id <function-handle> --file docs/examples/resources/functions/example-function.json",
-  "delete function --function-id <function-handle>",
+  "read function --function-handle <function-handle>",
+  "update function --function-handle <function-handle> --file docs/examples/resources/functions/example-function.json",
+  "delete function --function-handle <function-handle>",
 ].forEach((commandExample) => {
   assert.match(
     templateReadme,
@@ -57,12 +57,12 @@ assert.match(
 });
 
 [
-  "read widget --widget-id <widget-handle>",
-  "read variable --variable-name <variable-handle>",
-  "update widget --widget-id <widget-handle> --file docs/examples/resources/widgets/example-widget.json",
-  "update variable --variable-name <variable-handle> --file docs/examples/resources/variables/example-variable.json",
-  "delete widget --widget-id <widget-handle>",
-  "delete variable --variable-name <variable-handle>",
+  "read widget --widget-handle <widget-handle>",
+  "read variable --variable-handle <variable-handle>",
+  "update widget --widget-handle <widget-handle> --file docs/examples/resources/widgets/example-widget.json",
+  "update variable --variable-handle <variable-handle> --file docs/examples/resources/variables/example-variable.json",
+  "delete widget --widget-handle <widget-handle>",
+  "delete variable --variable-handle <variable-handle>",
 ].forEach((commandExample) => {
   assert.match(
     templateReadme,

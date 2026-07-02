@@ -25,46 +25,46 @@ const templateReadme = fs.readFileSync(path.join(projectRoot, "README.md"), "utf
 assert.deepEqual(
   Object.keys(exampleWidget),
   [
-    "widgetHandle",
-    "widgetName",
+    "handle",
+    "name",
     "liquid",
     "javascript",
     "externalJavascriptUrls",
     "disableJavascript",
   ],
-  "Expected the widget example to preserve the current public widget source fields.",
+  "Expected the widget example to use the canonical public widget source fields.",
 );
 
 assert.doesNotMatch(
   JSON.stringify(exampleWidget),
-  /"id"\s*:/,
-  "Expected the widget example not to store server-owned id metadata.",
+  /"(?:id|widgetId|widgetHandle|widgetName)"\s*:/,
+  "Expected the widget example not to store server-owned id metadata or legacy widget fields.",
 );
 
 assert.equal(
-  typeof exampleWidget.widgetHandle,
+  typeof exampleWidget.handle,
   "string",
-  "Expected the widget example to include widgetHandle as the public handle field.",
+  "Expected the widget example to include handle as the public handle field.",
 );
 assert.match(
-  exampleWidget.widgetHandle,
+  exampleWidget.handle,
   /^[a-z0-9]+(?:-[a-z0-9]+)*$/,
-  "Expected widgetHandle to be a lowercase slug identifier.",
+  "Expected handle to be a lowercase slug identifier.",
 );
 assert.equal(
-  typeof exampleWidget.widgetName,
+  typeof exampleWidget.name,
   "string",
-  "Expected the widget example to include widgetName as display text.",
+  "Expected the widget example to include name as display text.",
 );
 assert.notEqual(
-  exampleWidget.widgetName,
-  exampleWidget.widgetHandle,
-  "Expected widgetName to remain display text instead of the stable identifier.",
+  exampleWidget.name,
+  exampleWidget.handle,
+  "Expected name to remain display text instead of the stable identifier.",
 );
 
 assert.match(
   templateReadme,
-  /Widget source files keep the current public `widgetHandle` and `widgetName` field names: `widgetHandle` is the widget handle, and `widgetName` is display text\./,
+  /Widget source files use `handle` as the stable source identifier and `name` as display text\./,
   "Expected README.md to align widget field language with the unified handle contract.",
 );
 

@@ -24,7 +24,7 @@ Current examples:
 - `docs/examples/resources/requests/example-request.json`: HTTP request example covering the common top-level fields, all HTTP parameter types, and all trigger types.
 - `docs/examples/resources/requests/example-liquid-request.json`: Liquid request example showing the `liquid` field.
 - `docs/examples/resources/requests/example-system-request.json`: System request example showing the required `system` parameters.
-- `docs/examples/resources/widgets/example-widget.json`: Widget example using `widgetHandle` as the stable handle field and `widgetName` as display text.
+- `docs/examples/resources/widgets/example-widget.json`: Widget example using `handle` as the stable handle field and `name` as display text.
 - `docs/examples/resources/variables/example-variable.json`: Variable example including a stored value and the `sensitive` field.
 - `docs/examples/resources/functions/example-function.json`: Function example using a handle-first saved Function shape and reusable Liquid parameters.
 
@@ -47,29 +47,29 @@ apiease create widget --file docs/examples/resources/widgets/example-widget.json
 apiease create variable --file docs/examples/resources/variables/example-variable.json
 apiease create function --file docs/examples/resources/functions/example-function.json
 
-apiease read request --request-id <request-handle>
-apiease read widget --widget-id <widget-handle>
-apiease read variable --variable-name <variable-handle>
-apiease read function --function-id <function-handle>
+apiease read request --request-handle <request-handle>
+apiease read widget --widget-handle <widget-handle>
+apiease read variable --variable-handle <variable-handle>
+apiease read function --function-handle <function-handle>
 
-apiease update request --request-id <request-handle> --file docs/examples/resources/requests/example-request.json
-apiease update widget --widget-id <widget-handle> --file docs/examples/resources/widgets/example-widget.json
-apiease update variable --variable-name <variable-handle> --file docs/examples/resources/variables/example-variable.json
-apiease update function --function-id <function-handle> --file docs/examples/resources/functions/example-function.json
+apiease update request --request-handle <request-handle> --file docs/examples/resources/requests/example-request.json
+apiease update widget --widget-handle <widget-handle> --file docs/examples/resources/widgets/example-widget.json
+apiease update variable --variable-handle <variable-handle> --file docs/examples/resources/variables/example-variable.json
+apiease update function --function-handle <function-handle> --file docs/examples/resources/functions/example-function.json
 
-apiease delete request --request-id <request-handle>
-apiease delete widget --widget-id <widget-handle>
-apiease delete variable --variable-name <variable-handle>
-apiease delete function --function-id <function-handle>
+apiease delete request --request-handle <request-handle>
+apiease delete widget --widget-handle <widget-handle>
+apiease delete variable --variable-handle <variable-handle>
+apiease delete function --function-handle <function-handle>
 ```
 
 Requests, widgets, variables, and functions should use `handle` as the stable public identifier. Use `name` only as display text. Server-owned `id` values are APIEase metadata and should not be stored in template resource source files or examples.
 
-Create commands read the resource handle from the JSON file. Widget source files keep the current public `widgetHandle` and `widgetName` field names: `widgetHandle` is the widget handle, and `widgetName` is display text. Use `widgetHandle` as the widget handle until the public widget source shape exposes a plain `handle` field.
+Create commands read the resource handle from the JSON file. Widget source files use `handle` as the stable source identifier and `name` as display text. Older widget files that use `widgetHandle` or `widgetName` should be migrated before new CLI-driven work.
 
 Function source files include `handle` as the target stable identifier. The current Liquid Function tag supports `functionName` or `functionId`, but not a handle-named field yet. Until that Liquid invocation contract lands, Liquid examples use `functionName` as the compatibility fallback and avoid server-owned `functionId` values.
 
-The existing `--request-id`, `--widget-id`, `--variable-name`, and `--function-id` option names are compatibility names for read, update, and delete flows. Pass resource handles through those options unless the CLI exposes handle-named options for your installed version.
+Prefer the handle-named `--request-handle`, `--widget-handle`, `--variable-handle`, and `--function-handle` options for read, update, and delete flows. The older `--request-id`, `--widget-id`, `--variable-name`, and `--function-id` option names remain compatibility aliases; pass resource handles through those aliases only when maintaining older scripts.
 
 When a request source file has a valid `handle`, `apiease create request` is idempotent: it creates the request if the handle does not exist, or updates the existing request with that handle if it does. The same handle-first identity model applies to widgets, variables, and functions.
 
