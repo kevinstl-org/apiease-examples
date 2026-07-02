@@ -48,26 +48,19 @@ apiease create request --file examples/shopify/discount-codes/details/resources/
 apiease create widget --file examples/shopify/discount-codes/details/resources/widgets/lookup-shopify-discount-code-details.json
 ```
 
-For a working install, prefer the script below. APIEase may generate request IDs when resources are created. The script captures those generated IDs and wires them into temporary copies of the Liquid request and widget before creating the dependent resources. It also replaces the placeholder Shopify Admin GraphQL host in a temporary copy of the internal request, so you do not need to edit the example JSON first.
+For a working install, prefer the script below. It creates the resources by handle and replaces the placeholder Shopify Admin GraphQL host in a temporary copy of the internal request, so you do not need to edit the example JSON first.
 
 ```bash
 APIEASE_SHOP_DOMAIN=your-store.myshopify.com examples/shopify/discount-codes/details/create-resources.sh
 ```
 
-If a previous run already created the internal Admin GraphQL request, reuse its generated request ID:
-
-```bash
-APIEASE_ADMIN_REQUEST_ID=02c691f0-6f2f-11f1-907b-cbbded67d8c7 \
-  examples/shopify/discount-codes/details/create-resources.sh store-apiease-admin-local.myshopify.com
-```
-
-6. Add the Storefront App Proxy trigger to the Liquid request in the APIEase admin. The script prints the generated Liquid request ID at the end.
+6. Add the Storefront App Proxy trigger to the Liquid request in the APIEase admin. The Liquid request handle is `lookup-shopify-discount-code-details`.
 7. Add the APIEase app block to the desired theme template or page and set the widget handle to `lookup-shopify-discount-code-details`.
 8. Test with an existing discount code.
 
 The public resource API used by `apiease create request` may not support creating the Storefront App Proxy trigger directly. The runtime trigger type for storefront calls is `storefrontAppProxy`, but add it from the APIEase admin when the public API rejects that trigger field.
 
-If you use the manual commands instead of the script, update the Liquid request to call the generated Admin GraphQL request ID, and update the widget `data-request-id` to the generated Liquid request ID before creating the dependent resource.
+If you use the manual commands instead of the script, replace `your-store.myshopify.com` in the Admin GraphQL request file before creating it.
 
 ## Why this is safe
 
