@@ -5,7 +5,8 @@
   "handle": "lookup-shopify-discount-code-details",
   "triggers": [
     {
-      "type": "storefrontAppProxy"
+      "type": "storefrontAppProxy",
+      "storefrontAppProxy": {}
     }
   ]
 }
