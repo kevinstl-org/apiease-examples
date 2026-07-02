@@ -48,7 +48,7 @@ apiease create request --file examples/shopify/discount-codes/details/resources/
 apiease create widget --file examples/shopify/discount-codes/details/resources/widgets/lookup-shopify-discount-code-details.json
 ```
 
-For a working install, prefer the script below. It creates the resources by handle and replaces the placeholder Shopify Admin GraphQL host in a temporary copy of the internal request, so you do not need to edit the example JSON first.
+For a working install, prefer the script below. It passes `--auto-update-source-identifier` to request creates so `apiease-cli` handles source identifier migration for the file it creates from. It also replaces the placeholder Shopify Admin GraphQL host in a temporary copy of the internal request, so you do not need to edit the example JSON first.
 
 ```bash
 APIEASE_SHOP_DOMAIN=your-store.myshopify.com examples/shopify/discount-codes/details/create-resources.sh

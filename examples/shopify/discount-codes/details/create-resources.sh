@@ -43,7 +43,7 @@ require_command() {
 create_request() {
   local file="$1"
 
-  apiease create request --file "$file" "${shop_args[@]}"
+  apiease create request --file "$file" --auto-update-source-identifier "${shop_args[@]}"
 }
 
 create_admin_request_file() {
