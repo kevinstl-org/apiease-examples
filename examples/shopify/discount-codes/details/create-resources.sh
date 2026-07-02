@@ -9,6 +9,15 @@ widget_file="$script_dir/resources/widgets/lookup-shopify-discount-code-details.
 
 shop_domain="${1:-${APIEASE_SHOP_DOMAIN:-}}"
 shop_args=()
+rendered_admin_request_file=""
+
+cleanup() {
+  if [[ -n "$rendered_admin_request_file" && -f "$rendered_admin_request_file" ]]; then
+    rm -f "$rendered_admin_request_file"
+  fi
+}
+
+trap cleanup EXIT
 
 usage() {
   cat >&2 <<'USAGE'
@@ -43,6 +52,11 @@ create_widget() {
   apiease create widget --file "$file" --auto-update-source-identifier "${shop_args[@]}"
 }
 
+prepare_admin_request_file() {
+  rendered_admin_request_file="$(mktemp "${TMPDIR:-/tmp}/apiease-discount-admin-request.XXXXXX.json")"
+  sed "s|your-store.myshopify.com|$shop_domain|g" "$admin_request_file" > "$rendered_admin_request_file"
+}
+
 require_command apiease
 
 if [[ -n "$shop_domain" ]]; then
@@ -59,8 +73,10 @@ else
   exit 1
 fi
 
+prepare_admin_request_file
+
 echo "Creating internal Shopify Admin GraphQL request..."
-create_request "$admin_request_file"
+create_request "$rendered_admin_request_file"
 echo "Creating storefront-facing Liquid request..."
 create_request "$liquid_request_file"
 echo "Creating storefront widget..."

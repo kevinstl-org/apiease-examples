@@ -29,7 +29,7 @@ Theme Extension -> Shopify App Proxy -> APIEase -> Shopify Admin GraphQL
 
 ## Beginner-friendly steps
 
-1. Replace `your-store.myshopify.com` in `lookup-shopify-discount-code-admin-graphql.json` with the shop domain where APIEase is installed.
+1. Choose the shop domain where APIEase is installed. The setup script below injects that shop domain into a temporary copy of `lookup-shopify-discount-code-admin-graphql.json`; if you use the manual commands, replace `your-store.myshopify.com` in that file before creating the Admin GraphQL request.
 2. Confirm APIEase has the Shopify Admin API `read_discounts` scope for that shop.
    This example also requests product and collection display fields when a discount targets them, so confirm the shop token has the related read access if Shopify enforces it for your selected fields.
 3. Create the internal Admin GraphQL request:
@@ -62,7 +62,7 @@ APIEASE_SHOP_DOMAIN=your-store.myshopify.com examples/shopify/discount-codes/det
 
 The current public resource API rejects Storefront App Proxy triggers in request create payloads. Create or update the Liquid request from this source file, then add the Storefront App Proxy trigger in APIEase admin.
 
-If you use the manual commands instead of the script, replace `your-store.myshopify.com` in the Admin GraphQL request file before creating it.
+If you use the manual commands instead of the script, replace `your-store.myshopify.com` in the Admin GraphQL request file before creating it. The Shopify Admin API address must match the installed shop domain so APIEase can inject the correct shop access token.
 
 ## Why this is safe
 

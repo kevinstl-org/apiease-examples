@@ -14,8 +14,33 @@ function readExampleJson(relativePath) {
 const lookupRequest = readExampleJson(
   "resources/requests/lookup-shopify-discount-code-details.json",
 );
+const adminRequest = readExampleJson(
+  "resources/requests/lookup-shopify-discount-code-admin-graphql.json",
+);
 const lookupWidget = readExampleJson(
   "resources/widgets/lookup-shopify-discount-code-details.json",
+);
+const createResourcesScript = fs.readFileSync(
+  path.join(exampleRoot, "create-resources.sh"),
+  "utf8",
+);
+
+assert.equal(
+  adminRequest.address,
+  "https://your-store.myshopify.com/admin/api/2026-04/graphql.json",
+  "Expected the checked-in Admin GraphQL request to keep a reusable placeholder shop domain.",
+);
+
+assert.match(
+  createResourcesScript,
+  /sed "s\|your-store\.myshopify\.com\|\$shop_domain\|g" "\$admin_request_file" > "\$rendered_admin_request_file"/,
+  "Expected the setup script to render a shop-specific Admin GraphQL request before syncing it.",
+);
+
+assert.match(
+  createResourcesScript,
+  /create_request "\$rendered_admin_request_file"/,
+  "Expected the setup script to create the rendered Admin GraphQL request file.",
 );
 
 assert.match(
